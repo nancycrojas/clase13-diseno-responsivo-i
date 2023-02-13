@@ -1,0 +1,46 @@
+body {
+    background-image: url(./assets/fondo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.empezar {
+    color: white;
+    background-color: #992240;
+    border-radius: 45px;
+    padding: 10px 20px;
+    font-weight: 700;
+    border: none;
+}
+
+.superior {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mazo {
+    display: flex;
+}
+
+.casa {
+    display: flex;
+}
+
+.inferior {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.espacio-carta {
+    width: 100px;
+    height: 150px;
+    border: 2px solid white;
+    margin: 10px;
+    border-radius: 15px;
+}
+
+img {
+    width: 100px;
+    height: 150px;
+}
