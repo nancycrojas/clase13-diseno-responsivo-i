@@ -1,4 +1,4 @@
-//Funciones de utilidad
+//Función de utilidad
 
 const $ = (selector) => document.querySelector(selector);
 
@@ -6,6 +6,7 @@ const $botonEmpezarJuego = $(".empezar");
 
 const mazo = [];
 let barajado = [];
+let pilas = [];
 
 const tipos = ["corazones", "diamante", "trebol", "pica"];
 const colores = {
@@ -36,7 +37,21 @@ const barajarMazo = () => {
     .map(({carta}) => carta)
 };
 
+const servir = () => {
+    for (let i = 0; i < 7; i++) {
+        pilas.push([])
+        for (let j = 0; j < i + 1; j++) {
+            const primeraCartaDeBarajado = barajado[0];
+            barajado.shift()
+            pilas[i].push(primeraCartaDeBarajado)
+        }    
+    }
+console.log(barajado);
+console.log(pilas);
+}
+
 $botonEmpezarJuego.onclick = () => {
     crearMazo()
-    barajarMazo() 
+    barajarMazo()
+    servir()
 }; 
