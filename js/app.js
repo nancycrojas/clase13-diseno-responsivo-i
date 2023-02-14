@@ -8,10 +8,10 @@ const mazo = [];
 let barajado = [];
 let pilas = [];
 
-const tipos = ["corazones", "diamante", "trebol", "pica"];
+const tipos = ["corazones", "diamantes", "trebol", "pica"];
 const colores = {
     corazones: "rojo",
-    diamante: "rojo",
+    diamantes: "rojo",
     trebol: "negro",
     pica: "negro"
 };
@@ -24,7 +24,7 @@ const crearMazo = () => {
                 numero: i,
                 color: colores[tipos[j]],
                 tipo: tipos[j],
-                img: `${i}-${tipos[j]}`
+                img: `assets/${i}-${tipos[j]}.png`
             }
             mazo.push(carta) 
         }
@@ -46,12 +46,26 @@ const servir = () => {
             pilas[i].push(primeraCartaDeBarajado)
         }    
     }
-console.log(barajado);
-console.log(pilas);
+}
+
+const ponerCartasEnLasPilas = () => {
+    for (let i = 0; i < pilas.length; i++) {
+        const pila = document.querySelector(`#pila-${i}`);
+        for (let j = 0; j < pilas[i].length; j++) {
+            const carta = pilas[i][j];
+
+            const cartaHTML = document.createElement("div")
+            const imagen = document.createElement("img")
+            imagen.src = carta.img
+            cartaHTML.appendChild(imagen)
+            pila.appendChild(cartaHTML)
+        }
+    }
 }
 
 $botonEmpezarJuego.onclick = () => {
     crearMazo()
     barajarMazo()
     servir()
+    ponerCartasEnLasPilas()
 }; 
