@@ -38,6 +38,24 @@ body {
     border: 2px solid white;
     margin: 10px;
     border-radius: 15px;
+    position: relative;
+}
+
+.carta {
+    position: absolute;
+    border: 2px solid white;
+    border-radius: 15px;
+    height: 150px;
+}
+
+.carta-mazo {
+    position: relative;
+    height: 100px;
+    z-index: 1;
+}
+  
+.pila-inicial {
+    position: absolute;
 }
 
 img {

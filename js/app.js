@@ -24,7 +24,8 @@ const crearMazo = () => {
                 numero: i,
                 color: colores[tipos[j]],
                 tipo: tipos[j],
-                img: `assets/${i}-${tipos[j]}.png`
+                img: `assets/${i}-${tipos[j]}.png`,
+                estaDadaVuelta: true,
             }
             mazo.push(carta) 
         }
@@ -52,11 +53,22 @@ const ponerCartasEnLasPilas = () => {
     for (let i = 0; i < pilas.length; i++) {
         const pila = document.querySelector(`#pila-${i}`);
         for (let j = 0; j < pilas[i].length; j++) {
+            const estaUltimaCartaDeLaPila = j === pilas[i].length -1 
             const carta = pilas[i][j];
 
             const cartaHTML = document.createElement("div")
             const imagen = document.createElement("img")
-            imagen.src = carta.img
+            if (estaUltimaCartaDeLaPila) {
+                carta.estaDadaVuelta = false
+            }
+
+            if (carta.estaDadaVuelta) {
+                imagen.src ="assets/dorso.png"
+            } else {
+                imagen.src = carta.img
+            }
+            cartaHTML.classList.add("carta")
+            cartaHTML.style.top = `${j * 35}px`
             cartaHTML.appendChild(imagen)
             pila.appendChild(cartaHTML)
         }
