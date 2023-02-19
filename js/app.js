@@ -5,9 +5,10 @@ const $ = (selector) => document.querySelector(selector);
 const $botonEmpezarJuego = $(".empezar");
 const $pilaInicial = $("#pila-inicial");
 
-const mazo = [];
+let mazo = [];
 let barajado = [];
 let pilas = [];
+let primeraCartaCliqueada = null;
 
 const tipos = ["corazones", "diamantes", "trebol", "pica"];
 const colores = {
@@ -59,8 +60,15 @@ const crearCartaEnHTML = (carta) => {
     } else {
         imagen.src = carta.img
     }
-    cartaHTML.classList.add("carta")
-    cartaHTML.appendChild(imagen)
+    cartaHTML.dataset.numero = carta.numero
+    cartaHTML.dataset.color = carta.color
+    cartaHTML.dataset.tipo = carta.tipo
+
+    cartaHTML.classList.add("carta");
+    cartaHTML.appendChild(imagen);
+    cartaHTML.onclick = () => {
+        comprobarClickEnCarta(cartaHTML)
+    }
     return cartaHTML
 };
 
@@ -75,6 +83,7 @@ const ponerCartasEnLaPilaInicial = () => {
 const ponerCartasEnLasPilas = () => {
     for (let i = 0; i < pilas.length; i++) {
         const pila = document.querySelector(`#pila-${i}`);
+        pila.innerHTML = "";
         for (let j = 0; j < pilas[i].length; j++) {
             const esLaUltimaCartaDeLaPila = j === pilas[i].length -1 
             const carta = pilas[i][j];
@@ -82,16 +91,42 @@ const ponerCartasEnLasPilas = () => {
                 carta.estaDadaVuelta = false
             }
             const cartaHTML = crearCartaEnHTML(carta)
+            cartaHTML.dataset.pila = i
             cartaHTML.style.top = `${j * 35}px`
             pila.appendChild(cartaHTML)
         }
     }
 };
 
+const comprobarClickEnCarta = (carta) => {
+    if(primeraCartaCliqueada) {
+        const segundaCartaCliqueada = carta;
+        if(primeraCartaCliqueada.dataset.numero == segundaCartaCliqueada.dataset.numero - 1 && primeraCartaCliqueada.dataset.color !== segundaCartaCliqueada.dataset.color) {
+            const pilaDeLaPrimeraCarta = pilas[Number(primeraCartaCliqueada.dataset.pila)]
+            const pilaDeLaSegundaCarta = pilas[Number(segundaCartaCliqueada.dataset.pila)]
+            
+            const primeraCartaObjeto = pilaDeLaPrimeraCarta.pop();
+            pilaDeLaSegundaCarta.push(primeraCartaObjeto);
+
+            ponerCartasEnLasPilas()
+
+        }else {
+            alert("no se pueden mover :(")
+        }
+    }else {
+        primeraCartaCliqueada = carta
+        carta.style.border = "2px solid red"
+    }
+}
+
 $botonEmpezarJuego.onclick = () => {
+    mazo = [];
+    barajado = [];
+    pilas = [];
+
     crearMazo()
     barajarMazo()
     servir()
     ponerCartasEnLasPilas()
-    ponerCartasEnLaPilaInicial()
+    ponerCartasEnLaPilaInicial()  
 }; 
