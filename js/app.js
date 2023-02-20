@@ -35,7 +35,8 @@ const crearMazo = () => {
 };
 
 const barajarMazo = () => {
-    barajado = mazo.map(carta => ({carta, sort: Math.random()}))
+    barajado = mazo
+    .map(carta => ({carta, sort: Math.random()}))
     .sort((a,b) => a.sort - b.sort)
     .map(({carta}) => carta)
 };

@@ -2,6 +2,8 @@ body {
     background-image: url(./assets/fondo.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center top;
+    background-attachment: fixed;
 }
 
 .empezar {
@@ -61,4 +63,38 @@ body {
 img {
     width: 100px;
     height: 150px;
+}
+
+@media (max-width: 780px) {
+    .espacio-carta {
+        width: 80px;
+        height: 100px;
+        margin: 5px;
+        border: 1px solid white;
+    }
+    .carta {
+        border: 1px solid white;
+        height: 100px;
+    }
+    img {
+        width: 80px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .espacio-carta {
+        width: 40px;
+        height: 70px;
+        margin: 2px;
+        border-radius: 5px;
+    }
+    .carta {
+        border-radius: 5px;
+        height: 70px;
+    }
+    img {
+        width: 40px;
+        height: 70px;
+    }
 }
